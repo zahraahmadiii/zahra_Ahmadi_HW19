@@ -1,0 +1,17 @@
+.form{
+    background-color: rgb(87, 3, 73);
+    width: 24vw;
+    height: 58vh;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+   
+}
+.h2{
+    color: white;
+    font-weight: 100;
+    font-size: 1.80rem;
+    margin-top: 3rem;
+}

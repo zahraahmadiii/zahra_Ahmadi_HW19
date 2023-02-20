@@ -1,11 +1,10 @@
-import './App.css'
 import NoteBook from './Components/Phone_Notebook'
-
+import styles from './App.module.css'
 function App() {
 
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <NoteBook/>
     </div>
   )
