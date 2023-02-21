@@ -4,3 +4,7 @@
     gap: 3rem;
     align-items: center;
 }
+.modals{
+    display: flex;
+    gap: 1rem;
+}

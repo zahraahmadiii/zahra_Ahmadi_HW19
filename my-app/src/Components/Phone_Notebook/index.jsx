@@ -7,7 +7,12 @@ const NoteBook = () => {
   return (
     <div className={styles.container}>
         <ManageContact/>
+        <div className={styles.modals}>
         <Modal/>
+        <Modal/>
+        <Modal/>
+        </div>
+        
     </div>
   )
 }

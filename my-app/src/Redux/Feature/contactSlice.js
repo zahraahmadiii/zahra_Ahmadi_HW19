@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     // contactList:JSON.parse(localStorage.getItem("contactList")),
-    disabledBtn:true
+    disabledBtn:false
 }
  export const contactSlice=createSlice({
     name:'contactData',
