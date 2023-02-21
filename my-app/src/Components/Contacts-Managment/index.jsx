@@ -2,8 +2,12 @@ import React from 'react'
 import Button from '../Button';
 import Input from '../Input';
 import styles from './style.module.css'
+import {useSelector} from 'react-redux'
 
 const ManageContact = () => {
+
+  const state=useSelector(state=>state.contactData)
+
   return (
     <div className={styles.form}>
       <h2 className={styles.h2}> وب اپلیکیشن مدیریت مخاطبین</h2>
@@ -17,7 +21,7 @@ const ManageContact = () => {
         <option value=''>همکار</option>
       </select>
       <Input type={'email'} placeholder={"ایمیل..."}/>
-     <Input type={'button'} title={"اضافه کردن"} style={{cursor:"pointer"}} disabled={true}/>
+     <Input type={'button'} title={"اضافه کردن"} style={{cursor:"pointer"}} disabled={state.disabledBtn}/>
     </div>
   )
 }
