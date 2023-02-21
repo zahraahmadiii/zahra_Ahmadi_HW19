@@ -3,14 +3,17 @@ import Input from '../Input';
 import styles from './style.module.css'
 import {useSelector} from 'react-redux'
 import { UseInput } from '../hooks/UseInput';
+
 const ManageContact = () => {
-  
+
 const state=useSelector(state=>state.contactData)
 
 const {value:name,changeValueHandler:namechangeHandler}=UseInput()
 const {value:LastName,changeValueHandler:LastNamechangeHandler}=UseInput()
 const {value:phoneNum,changeValueHandler:phoneNumchangeHandler}=UseInput()
 const {value:email,changeValueHandler:emailchangeHandler}=UseInput()
+const {value:selected,changeValueHandler:selectchangeValueHandler}=UseInput()
+
 
 const submitHandler=(e)=>{
 e.preventDefault()
@@ -22,11 +25,11 @@ e.preventDefault()
       <Input type={'text'} placeholder={"نام..."} changeValue={namechangeHandler}/>
       <Input type={'text'} placeholder={"نام خانوادگی..."} changeValue={LastNamechangeHandler}/>
       <Input type={'text'} placeholder={"شماره تماس..."}  changeValue={phoneNumchangeHandler} />
-      <select className={styles.select}>
-        <option value=''>نسبت</option>
-        <option value=''>اعضای خانواده</option>
-        <option value=''>دوست</option>
-        <option value=''>همکار</option>
+      <select className={styles.select} onChange={selectchangeValueHandler} >
+        <option value='نسبت'>نسبت</option>
+        <option value='اعضای خانواده'>اعضای خانواده</option>
+        <option value='دوست'>دوست</option>
+        <option value='همکار'>همکار</option>
       </select>
       <Input type={'email'} placeholder={"ایمیل..."}  changeValue={emailchangeHandler}/>
      <Input type={'button'} title={"اضافه کردن"} style={{cursor:"pointer"}} disabled={state.disabledBtn}/>

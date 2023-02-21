@@ -6,8 +6,10 @@ export const UseInput = () => {
 
     const changeValueHandler=(event)=>{
         setEnteredValue(event.target.value)
-    
+          console.log(event.target.value);
+       
     }
+    
     return {enteredValue,changeValueHandler}
     
 }
