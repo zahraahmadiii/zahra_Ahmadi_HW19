@@ -5,7 +5,9 @@ import styles from './style.module.css'
 import { useDispatch} from 'react-redux';
 import { EDITICON , DELETMODAL } from "../../Redux/Feature/contactSlice"
 const Modal= ({item}) => {
+
  console.log(item)
+ 
   const dispatch = useDispatch()
     
   const editHandler = (id) => {

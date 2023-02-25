@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={ 
-  contactInfo: [],
+  ContactData: [],
   deletMood:false,
   editMood:false,
-  valueId:0  
+  id:0  
 }
   
 
@@ -13,29 +13,29 @@ const initialState={
     initialState,
     reducers:{
       SUBMITE: (state, action) => {
-        state.contactInfo = action.payload
+        state.ContactData = action.payload
     },
 
     EDITICON:(state,action) => {
       state.editMood = true
-      state.valueId = action.payload 
+      state.id = action.payload 
     },
 
     EDIT_CONTACT:(state,action) => {
 
-      state.contactInfo = action.payload
+      state.ContactData = action.payload
       
       let newObj = {}
       let getLocalData = JSON.parse(localStorage.getItem('contact'))
-      const findIndex = getLocalData.findIndex(item => item.id === state.valueId)
+      const findIndex = getLocalData.findIndex(item => item.id === state.id)
      
       getLocalData.map(item => { 
-        if(item.id === state.valueId){
+        if(item.id === state.id){
           
-          item.name = state.contactInfo.name
-          item.lastName = state.contactInfo.lastName
-          item.email = state.contactInfo.email
-          item.selfRelative = state.contactInfo.relation
+          item.name = state.ContactData.name
+          item.lastName = state.ContactData.lastName
+          item.email = state.ContactData.email
+          item.selfRelative = state.ContactData.relation
 
           newObj = {name:item.name,lastName:item.lastName, email:item.email,selfRelative:item.selfRelative }
         }
@@ -47,28 +47,28 @@ const initialState={
 
     DELETMODAL:(state,action) => {
       state.deletMood = true
-      state.valueId = action.payload
+      state.id = action.payload
     },
 
-    NO_MODAL_DELE:(state,action) => {
+    NODELETE :(state,action) => {
       state.deletMood = false
     },
 
-    YES_MODAL_DELE:(state,action) => {
-      state.contactInfo = action.payload
-      state.deletMood = false    //close deletmodal
+    YESDELETE:(state,action) => {
+      state.ContactData = action.payload
+      state.deletMood = false   
 
-      //get data on local storage for delet
+      //get data from local storage for delete item
       let getLocalData = JSON.parse(localStorage.getItem('contact'))
       let localArray = []
       localArray = getLocalData
-      const findIndex = localArray.findIndex(item => item.id === state.valueId)
+      const findIndex = localArray.findIndex(item => item.id === state.id)
       localArray.splice(findIndex,1)
       localStorage.setItem('contact',JSON.stringify(localArray))
     },
     }
 })
-export const {SUBMITE , EDITICON , DELETMODAL , NO_MODAL_DELE , YES_MODAL_DELE, EDIT_CONTACT}=contactSlice.actions
+export const {SUBMITE , EDITICON , DELETMODAL , NODELETE , YESDELETE, EDIT_CONTACT}=contactSlice.actions
  
 
 export default contactSlice.reducer

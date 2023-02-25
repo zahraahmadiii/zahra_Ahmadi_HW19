@@ -8,9 +8,9 @@ import { SUBMITE, EDIT_CONTACT } from "../../Redux/Feature/contactSlice"
 import { ToastContainer, toast} from 'react-toastify'
 
 const ManageContact = () => {
-   const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const state = useSelector(state => state.contactData)
-   const [ableBtn,setAbleBtn]=useState(true)
+    const [ableBtn,setAbleBtn]=useState(true)
  
   const validateForm= async()=>{
   
@@ -48,12 +48,14 @@ const onSubmitHandler = (event) => {
         lastName:lastName,
         relation:selected,
         email:email}
-})) 
-if(!state.editMood){  
-    toast.success('Add is successfule')
-}   
+  })) 
+
+ if(!state.editMood){  
+    toast.success('Adding is successfully')
+ }   
   setLocal()
-};
+ };
+
 const setLocal = () => {
 
   let newObj = {
@@ -69,6 +71,7 @@ const setLocal = () => {
         localStorage.setItem('contact', JSON.stringify(oldInfo));
 
 }
+
 const editClick = () => {
 
   dispatch(EDIT_CONTACT(
@@ -79,7 +82,7 @@ const editClick = () => {
     }
   ))
   if(state.editMood){
-      toast.success('Edit is successfule')
+      toast.success('Editing is successfully')
   }    
 }
 
