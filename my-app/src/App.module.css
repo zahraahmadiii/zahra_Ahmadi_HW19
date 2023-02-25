@@ -1,8 +1,13 @@
 .App{
     background-image: linear-gradient(to right, rgba(125, 19, 81), rgba(73, 88, 153));
     display: flex;
-    justify-content: center;
+    gap: 2rem;
     flex-direction: column;
     align-items: center;
     height: 100vh;
+}
+.wrapperModal{
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
 }

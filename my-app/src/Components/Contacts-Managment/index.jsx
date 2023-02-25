@@ -1,51 +1,113 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../Input';
 import styles from './style.module.css'
-import {useSelector} from 'react-redux'
-import { UseInput } from '../hooks/UseInput';
-import { UserSchema } from '../../Validations/UserValidation'; 
+import {useDispatch, useSelector} from 'react-redux'
+import { UseInput } from '../hooks/UseInput'; 
+import { UserSchema } from "../../Validations/UserValidation"; 
+import { SUBMITE, EDIT_CONTACT } from "../../Redux/Feature/contactSlice"
+import { ToastContainer, toast} from 'react-toastify'
+
 const ManageContact = () => {
-
-const state=useSelector(state=>state.contactData)
-
-const {value:name,changeValueHandler:namechangeHandler}=UseInput()
-const {value:LastName,changeValueHandler:LastNamechangeHandler}=UseInput()
-const {value:phoneNum,changeValueHandler:phoneNumchangeHandler}=UseInput()
-const {value:email,changeValueHandler:emailchangeHandler}=UseInput()
-const {value:selected,changeValueHandler:selectchangeValueHandler}=UseInput()
-
-
-
-const onSubmitHandler = async(event) => {
-  event.preventDefault()
-  console.log(event);
-  let formData={
-    name:event.target[0].value,
-    lastName:event.target[1].value ,
-    mobile:event.target[2].value ,
-    relationShip:event.target[3].value,
-    email:event.target[4].value,
+   const dispatch = useDispatch()
+    const state = useSelector(state => state.contactData)
+   const [ableBtn,setAbleBtn]=useState(true)
+ 
+  const validateForm= async()=>{
+  
+    let formData={
+      name,
+      lastName,
+      phone,
+      email,
+    }
+    console.log(formData);
+    try {
+     await UserSchema.validate(formData)
+     setAbleBtn(false)
+   }
+   catch(error){
+     setAbleBtn(true)
+   }
+  
   }
-  console.log(formData);
-  const isValid=await UserSchema.isValid(formData)
+
+
+const {enteredValue:name,changeValueHandler:namechangeHandler}=UseInput(validateForm)
+const {enteredValue:lastName,changeValueHandler:LastNamechangeHandler}=UseInput(validateForm)
+const {enteredValue:phone,changeValueHandler:phoneNumchangeHandler}=UseInput(validateForm)
+const {enteredValue:email,changeValueHandler:emailchangeHandler}=UseInput(validateForm)
+const {enteredValue:selected,changeValueHandler:selectchangeValueHandler}=UseInput(validateForm)
+
+
+
+const onSubmitHandler = (event) => {
+  event.preventDefault()
+  dispatch(SUBMITE({
+    payload: {
+        name:name,
+        lastName:lastName,
+        relation:selected,
+        email:email}
+})) 
+if(!state.editMood){  
+    toast.success('Add is successfule')
+}   
+  setLocal()
 };
+const setLocal = () => {
+
+  let newObj = {
+      id:Date.now(),
+      name:name,
+      lastName:lastName,
+      relation:selected,
+      email:email,  
+  } 
+
+  const oldInfo = JSON.parse(localStorage.getItem('contact') || '[]');
+        oldInfo.push(newObj)
+        localStorage.setItem('contact', JSON.stringify(oldInfo));
+
+}
+const editClick = () => {
+
+  dispatch(EDIT_CONTACT(
+     {name:name,
+      lastName:lastName,
+      relation:selected,
+      email:email
+    }
+  ))
+  if(state.editMood){
+      toast.success('Edit is successfule')
+  }    
+}
+
 
 
   return (
+    <>
+    <ToastContainer/>
     <form onSubmit={onSubmitHandler} className={styles.form}>
       <h2 className={styles.h2}> وب اپلیکیشن مدیریت مخاطبین</h2>
-      <Input type={'text'} placeholder={"نام..."} changeValue={namechangeHandler}/>
-      <Input type={'text'} placeholder={"نام خانوادگی..."} changeValue={LastNamechangeHandler}/>
-      <Input type={'text'} placeholder={"شماره تماس..."}  changeValue={phoneNumchangeHandler} />
-      <select className={styles.select} onChange={selectchangeValueHandler} >
+      <Input type={'text'} placeholder={"نام..."} changeValue={namechangeHandler} topic={name}/>
+      <Input type={'text'} placeholder={"نام خانوادگی..."} changeValue={LastNamechangeHandler} topic={lastName}/>
+      <Input type={'text'} placeholder={"شماره تماس..."}  changeValue={phoneNumchangeHandler} topic={phone} />
+      <select className={styles.select} onChange={selectchangeValueHandler} topic={selected}>
         <option value='نسبت'>نسبت</option>
         <option value='اعضای خانواده'>اعضای خانواده</option>
         <option value='دوست'>دوست</option>
         <option value='همکار'>همکار</option>
       </select>
-      <Input type={'email'} placeholder={"ایمیل..."}  changeValue={emailchangeHandler}/>
-     <Input type={'submit'} title={"اضافه کردن"} style={{cursor:"pointer"}} disabled={state.disabledBtn}/>
+      <Input type={'email'} placeholder={"ایمیل..."}  changeValue={emailchangeHandler} topic={email}/>
+      {state.editMood?
+      <Input type={'submit'}  style={{cursor:"pointer"}} disabled={ableBtn} clicked={editClick} title={"ویرایش"} BtnStyle={{cursor:'pointer', backgroundColor:'gray', color:'white'}} />
+      :
+     <Input type={'submit'} title={"اضافه کردن"} style={{cursor:"pointer"}} disabled={ableBtn} BtnStyle={{cursor:'pointer'}}/>
+      }
+     
     </form>
+    </>
   )
 }
 

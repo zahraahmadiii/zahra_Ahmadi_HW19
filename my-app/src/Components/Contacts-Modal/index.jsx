@@ -2,22 +2,39 @@ import React from 'react'
 import {BsTrash} from "react-icons/bs"
 import {FaRegEdit} from "react-icons/fa"
 import styles from './style.module.css'
-const Modal= () => {
+import { useDispatch} from 'react-redux';
+import { EDITICON , DELETMODAL } from "../../Redux/Feature/contactSlice"
+const Modal= ({item}) => {
+ console.log(item)
+  const dispatch = useDispatch()
+    
+  const editHandler = (id) => {
+      dispatch(EDITICON(id)) 
+  }
+
+  const deletHandler = (id) => {
+      dispatch(DELETMODAL(id))
+  }
+
   return (
+    
     <div className={styles.modal}>
-        <span className={styles.row1}>
+      
+        {/* <span className={styles.row1}> */}
+          
           <div>
-            <BsTrash className={styles.icons}/>
-            <FaRegEdit className={styles.icons}/>
+            <BsTrash className={styles.icons}onClick={()=>deletHandler(item.id)}/>
+            <FaRegEdit className={styles.icons} onClick={()=>editHandler(item.id)}/>
           </div>
-           
-            <h3>زهرااحمدی</h3>
-            
-        </span>
+{/*   
+        </span> */}
+        {item ?
         <div>
-            <p>اعضای خانواده</p>
-            <p>ایمیل</p>
-         </div>
+           <h3>{item.name + item.lastName}</h3>
+            <p>{item.relation}</p>
+            <p>{item.email}</p>
+         </div>: ""
+         }
          
     </div>
   )

@@ -1,7 +1,13 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
 .form{
     background-color: rgb(87, 3, 73);
     width: 24vw;
-    height: 58vh;
+    height: 60vh;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -13,7 +19,7 @@
     color: white;
     font-weight: 100;
     font-size: 1.80rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 .select{
     background-color: rgb(255, 255, 255);
