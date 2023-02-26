@@ -35,9 +35,9 @@ const initialState={
           item.name = state.ContactData.name
           item.lastName = state.ContactData.lastName
           item.email = state.ContactData.email
-          item.selfRelative = state.ContactData.relation
+          item.selected= state.ContactData.selected
 
-          newObj = {name:item.name,lastName:item.lastName, email:item.email,selfRelative:item.selfRelative }
+          newObj = {name:item.name,lastName:item.lastName, email:item.email,selected:item.selected}
         }
         return
       })
@@ -70,5 +70,4 @@ const initialState={
 })
 export const {SUBMITE , EDITICON , DELETMODAL , NODELETE , YESDELETE, EDIT_CONTACT}=contactSlice.actions
  
-
 export default contactSlice.reducer

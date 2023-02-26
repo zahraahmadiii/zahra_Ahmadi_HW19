@@ -11,6 +11,6 @@ export const UseInput = (data) => {
     };
     
     
-    return {enteredValue,changeValueHandler};
+    return {enteredValue,changeValueHandler,setEnteredValue};
     
 };

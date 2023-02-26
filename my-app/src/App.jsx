@@ -10,16 +10,18 @@ function App() {
   const state = useSelector(state => state.contactData)
 
   let getLocal = JSON.parse(localStorage.getItem('contact'))
-        
+   console.log(getLocal)     
 
   return (
     <div className={styles.App}>
    
     <ManageContact/>
     <div className={styles.wrapperModal}>
+
     {getLocal ? getLocal.map(item => (
          <Modal item={item} />
       )) :''}
+      
     </div>
     {state.deletMood? <DeletModal/>:null}
     </div>

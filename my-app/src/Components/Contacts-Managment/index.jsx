@@ -46,7 +46,7 @@ const onSubmitHandler = (event) => {
     payload: {
         name:name,
         lastName:lastName,
-        relation:selected,
+        selected:selected,
         email:email}
   })) 
 
@@ -62,7 +62,7 @@ const setLocal = () => {
       id:Date.now(),
       name:name,
       lastName:lastName,
-      relation:selected,
+      selected:selected,
       email:email,  
   } 
 
@@ -77,7 +77,7 @@ const editClick = () => {
   dispatch(EDIT_CONTACT(
      {name:name,
       lastName:lastName,
-      relation:selected,
+      selected:selected,
       email:email
     }
   ))
@@ -91,6 +91,7 @@ const editClick = () => {
   return (
     <>
     <ToastContainer/>
+    
     <form onSubmit={onSubmitHandler} className={styles.form}>
       <h2 className={styles.h2}> وب اپلیکیشن مدیریت مخاطبین</h2>
       <Input type={'text'} placeholder={"نام..."} changeValue={namechangeHandler} topic={name}/>
